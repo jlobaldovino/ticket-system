@@ -1,0 +1,1 @@
+INSERT INTO usuarios (id, nombres, apellidos, fecha_creacion, fecha_actualizacion) VALUES (RANDOM_UUID(), 'Juan', 'Pérez', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
