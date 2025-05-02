@@ -1,6 +1,6 @@
 # Ticket System
 
-Sistema de gestión de tickets tipo mesa de ayuda, desarrollado con arquitectura orientada a eventos y microservicios usando Java (Spring Boot) y Node.js (NestJS).
+Sistema de gestión de tickets manejados por usuarios, desarrollado con arquitectura orientada a eventos y microservicios usando Java (Spring Boot) y Node.js (NestJS).
 
 ## Microservicios
 
