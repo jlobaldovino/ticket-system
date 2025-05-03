@@ -8,10 +8,9 @@ import java.util.UUID;
 
 @Data
 @Builder
-public class UserDTO {
+public class AuthUserDTO {
     private UUID id;
-    private String nombres;
-    private String apellidos;
     private String email;
+    private String passwordHash;
     private String rol;
 }
