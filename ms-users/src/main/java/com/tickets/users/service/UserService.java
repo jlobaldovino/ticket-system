@@ -7,11 +7,11 @@ import com.tickets.users.dto.UserDTO;
 
 import java.util.UUID;
 
-public interface IUserService {
+public interface UserService {
 
     UserDTO crearUsuario(CrearUsuarioDTO dto);
 
     UserDTO actualizarUsuario(UUID id, ActualizarUsuarioDTO dto);
 
-    AuthUserDTO buscarPorEmailOExcepcion(String email);
+    AuthUserDTO buscarPorEmail(String email);
 }

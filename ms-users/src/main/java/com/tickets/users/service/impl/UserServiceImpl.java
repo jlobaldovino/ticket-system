@@ -9,7 +9,7 @@ import com.tickets.users.exception.EmailYaRegistradoException;
 import com.tickets.users.exception.UsuarioNoEncontradoException;
 import com.tickets.users.mapper.UserMapper;
 import com.tickets.users.repository.UserRepository;
-import com.tickets.users.service.IUserService;
+import com.tickets.users.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +21,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -43,7 +43,7 @@ public class UserServiceImpl implements IUserService {
         return UserMapper.toDTO(usuario);
     }
 
-    public AuthUserDTO buscarPorEmailOExcepcion(String email) {
+    public AuthUserDTO buscarPorEmail(String email) {
         return userRepository.findByEmail(email)
                 .map(user -> AuthUserDTO.builder()
                         .id(user.getId())

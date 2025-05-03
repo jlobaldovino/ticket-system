@@ -4,7 +4,7 @@ import com.tickets.users.dto.ActualizarUsuarioDTO;
 import com.tickets.users.dto.AuthUserDTO;
 import com.tickets.users.dto.CrearUsuarioDTO;
 import com.tickets.users.dto.UserDTO;
-import com.tickets.users.service.IUserService;
+import com.tickets.users.service.UserService;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,12 +22,12 @@ import java.util.UUID;
 @Tag(name = "Usuarios", description = "Operaciones relacionadas con usuarios")
 public class UserController {
 
-    private final IUserService IUserService;
+    private final UserService userService;
 
     @PostMapping
     @Operation(summary = "Crear un nuevo usuario")
     public ResponseEntity<UserDTO> crearUsuario(@Valid @RequestBody CrearUsuarioDTO dto) {
-        UserDTO creado = IUserService.crearUsuario(dto);
+        UserDTO creado = userService.crearUsuario(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
 
@@ -35,14 +35,14 @@ public class UserController {
     public ResponseEntity<UserDTO> actualizarUsuario(
             @PathVariable UUID id,
             @Valid @RequestBody ActualizarUsuarioDTO dto) {
-        UserDTO actualizado = IUserService.actualizarUsuario(id, dto);
+        UserDTO actualizado = userService.actualizarUsuario(id, dto);
         return ResponseEntity.ok(actualizado);
     }
 
     @Hidden
     @GetMapping("/email/{email}")
     public ResponseEntity<AuthUserDTO> obtenerPorEmail(@PathVariable String email) {
-        return ResponseEntity.ok(IUserService.buscarPorEmailOExcepcion(email));
+        return ResponseEntity.ok(userService.buscarPorEmail(email));
     }
 
 }
