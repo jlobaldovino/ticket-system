@@ -1,4 +1,4 @@
-package com.tickets.users.service;
+package com.tickets.users.service.impl;
 
 import com.tickets.users.dto.ActualizarUsuarioDTO;
 import com.tickets.users.dto.AuthUserDTO;
@@ -9,19 +9,19 @@ import com.tickets.users.exception.EmailYaRegistradoException;
 import com.tickets.users.exception.UsuarioNoEncontradoException;
 import com.tickets.users.mapper.UserMapper;
 import com.tickets.users.repository.UserRepository;
+import com.tickets.users.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserServiceImpl implements IUserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -31,7 +31,6 @@ public class UserService {
         validarEmailDisponible(dto.getEmail());
         UserEntity entity = UserMapper.toEntity(dto, passwordEncoder.encode(dto.getPassword()));
         userRepository.save(entity);
-        log.info("Usuario creado exitosamente: {}", entity.getEmail());
         return UserMapper.toDTO(entity);
     }
 

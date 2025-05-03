@@ -6,7 +6,6 @@ import com.tickets.users.dto.UserDTO;
 import com.tickets.users.entity.UserEntity;
 import com.tickets.users.exception.EmailYaRegistradoException;
 import com.tickets.users.exception.UsuarioNoEncontradoException;
-import com.tickets.users.mapper.UserMapper;
 import com.tickets.users.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,10 +18,10 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class UserServiceTest {
+class IUserServiceTest {
 
     @InjectMocks
-    private UserService userService;
+    private IUserService IUserService;
 
     @Mock
     private UserRepository userRepository;
@@ -63,7 +62,7 @@ class UserServiceTest {
         }).when(userRepository).save(captor.capture());
 
         // Act
-        UserDTO resultado = userService.crearUsuario(dto);
+        UserDTO resultado = IUserService.crearUsuario(dto);
 
         // Assert
         assertEquals(dto.getEmail(), resultado.getEmail());
@@ -87,7 +86,7 @@ class UserServiceTest {
 
         // Act & Assert
         EmailYaRegistradoException ex = assertThrows(EmailYaRegistradoException.class, () -> {
-            userService.crearUsuario(dto);
+            IUserService.crearUsuario(dto);
         });
 
         assertEquals("El correo electrónico '"+emailRepetido+"' ya está registrado.", ex.getMessage());
@@ -115,7 +114,7 @@ class UserServiceTest {
         when(userRepository.findByEmail(dto.getEmail())).thenReturn(Optional.of(existente)); // mismo usuario
 
         // Act
-        UserDTO resultado = userService.actualizarUsuario(id, dto);
+        UserDTO resultado = IUserService.actualizarUsuario(id, dto);
 
         // Assert
         assertEquals("Nuevo", resultado.getNombres());
@@ -135,7 +134,7 @@ class UserServiceTest {
 
         // Act & Assert
         UsuarioNoEncontradoException ex = assertThrows(UsuarioNoEncontradoException.class, () -> {
-            userService.actualizarUsuario(id, dto);
+            IUserService.actualizarUsuario(id, dto);
         });
 
         assertTrue(ex.getMessage().contains(id.toString()));
@@ -166,7 +165,7 @@ class UserServiceTest {
 
         // Act & Assert
         EmailYaRegistradoException ex = assertThrows(EmailYaRegistradoException.class, () -> {
-            userService.actualizarUsuario(id, dto);
+            IUserService.actualizarUsuario(id, dto);
         });
 
         assertEquals("El correo electrónico 'nuevo@correo.com' ya está registrado.", ex.getMessage());
