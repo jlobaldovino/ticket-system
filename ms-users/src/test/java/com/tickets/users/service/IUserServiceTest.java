@@ -7,6 +7,7 @@ import com.tickets.users.entity.UserEntity;
 import com.tickets.users.exception.EmailYaRegistradoException;
 import com.tickets.users.exception.UsuarioNoEncontradoException;
 import com.tickets.users.repository.UserRepository;
+import com.tickets.users.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -21,7 +22,7 @@ import static org.mockito.Mockito.*;
 class IUserServiceTest {
 
     @InjectMocks
-    private IUserService IUserService;
+    private UserServiceImpl userService;
 
     @Mock
     private UserRepository userRepository;
@@ -62,7 +63,7 @@ class IUserServiceTest {
         }).when(userRepository).save(captor.capture());
 
         // Act
-        UserDTO resultado = IUserService.crearUsuario(dto);
+        UserDTO resultado = userService.crearUsuario(dto);
 
         // Assert
         assertEquals(dto.getEmail(), resultado.getEmail());
@@ -86,7 +87,7 @@ class IUserServiceTest {
 
         // Act & Assert
         EmailYaRegistradoException ex = assertThrows(EmailYaRegistradoException.class, () -> {
-            IUserService.crearUsuario(dto);
+            userService.crearUsuario(dto);
         });
 
         assertEquals("El correo electrónico '"+emailRepetido+"' ya está registrado.", ex.getMessage());
@@ -101,26 +102,36 @@ class IUserServiceTest {
     void actualizarUsuario_deberiaActualizarUsuarioCorrectamente() {
         // Arrange
         UUID id = UUID.randomUUID();
+
+        // Usuario ya existente
         UserEntity existente = new UserEntity();
         existente.setId(id);
         existente.setEmail("actual@correo.com");
+        existente.setNombres("Antiguo");
+        existente.setApellidos("Nombre");
 
+        // DTO con la misma dirección de email
         ActualizarUsuarioDTO dto = new ActualizarUsuarioDTO();
-        dto.setNombres("Nuevo");
-        dto.setApellidos("Apellido");
-        dto.setEmail("actual@correo.com"); // mismo email
+        dto.setNombres("NuevoNombre");
+        dto.setApellidos("NuevoApellido");
+        dto.setEmail("actual@correo.com"); // MISMO EMAIL
 
+        // Mock del repositorio
         when(userRepository.findById(id)).thenReturn(Optional.of(existente));
         when(userRepository.findByEmail(dto.getEmail())).thenReturn(Optional.of(existente)); // mismo usuario
 
         // Act
-        UserDTO resultado = IUserService.actualizarUsuario(id, dto);
+        UserDTO resultado = userService.actualizarUsuario(id, dto);
 
         // Assert
-        assertEquals("Nuevo", resultado.getNombres());
-        assertEquals("actual@correo.com", resultado.getEmail());
+        assertEquals(dto.getNombres(), resultado.getNombres());
+        assertEquals(dto.getApellidos(), resultado.getApellidos());
+        assertEquals(dto.getEmail(), resultado.getEmail());
+        assertEquals("USER", resultado.getRol()); // rol fijo
+
         verify(userRepository).findById(id);
-        verify(userRepository).save(existente); // implícito si usas save, explícito si haces flush
+        verify(userRepository).findByEmail(dto.getEmail());
+        verify(userRepository, never()).save(any()); // no obligatorio si JPA hace merge automático
     }
 
     @Test
@@ -134,7 +145,7 @@ class IUserServiceTest {
 
         // Act & Assert
         UsuarioNoEncontradoException ex = assertThrows(UsuarioNoEncontradoException.class, () -> {
-            IUserService.actualizarUsuario(id, dto);
+            userService.actualizarUsuario(id, dto);
         });
 
         assertTrue(ex.getMessage().contains(id.toString()));
@@ -165,7 +176,7 @@ class IUserServiceTest {
 
         // Act & Assert
         EmailYaRegistradoException ex = assertThrows(EmailYaRegistradoException.class, () -> {
-            IUserService.actualizarUsuario(id, dto);
+            userService.actualizarUsuario(id, dto);
         });
 
         assertEquals("El correo electrónico 'nuevo@correo.com' ya está registrado.", ex.getMessage());
