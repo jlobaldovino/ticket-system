@@ -1,14 +1,10 @@
 server:
-  port: 8081
+  port: 8082
 
 spring:
 
-#  config:
-#    activate:
-#      on-profile: dev
-
   datasource:
-    url: jdbc:h2:mem:usersdb
+    url: jdbc:h2:mem:ticketsdb
     driver-class-name: org.h2.Driver
     username: sa
     password:

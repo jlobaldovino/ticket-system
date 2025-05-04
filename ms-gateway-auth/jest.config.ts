@@ -1,7 +1,7 @@
 export default {
     preset: 'ts-jest',
     testEnvironment: 'node',
-    rootDir: 'src',
+    rootDir: '.',
     moduleFileExtensions: ['ts', 'js', 'json'],
     transform: {
       '^.+\\.ts$': 'ts-jest',
@@ -9,4 +9,7 @@ export default {
     testRegex: '.*\\.spec\\.ts$',
     collectCoverageFrom: ['**/*.ts'],
     coverageDirectory: '../coverage',
+    moduleNameMapper: {
+      '^src/(.*)$': '<rootDir>/src/$1'
+    }
   };

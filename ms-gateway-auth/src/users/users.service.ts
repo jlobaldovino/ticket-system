@@ -1,9 +1,10 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
 import { log } from 'node:console';
-import { CrearUsuarioDTO } from 'src/auth/auth.dto';
+import { ActualizarUsuarioDTO, CrearUsuarioDTO, UsuarioRespuestaDTO } from 'src/auth/auth.dto';
+import { AxiosResponse } from 'axios';
 
 @Injectable()
 export class UsersService {
@@ -45,6 +46,29 @@ export class UsersService {
       return res.data;
     } catch (err: any) {
       throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
+    }
+  }
+
+  async obtenerTodos(query: any): Promise<AxiosResponse<UsuarioRespuestaDTO[]>> {
+    try {
+      const res$ = this.http.get(`${this.baseUrl}`, { params: query });
+      const res = await firstValueFrom(res$);
+      return res.data;
+    } catch (err: any) {
+      throw new UnauthorizedException('No autorizado');
+    }
+  }
+
+  async actualizarUsuario(id: string, dto: ActualizarUsuarioDTO): Promise<any> {
+    try {
+      const res$ = this.http.put(`${this.baseUrl}/${id}`, dto);
+      const res = await firstValueFrom(res$);
+      return res.data;
+    } catch (err: any) {
+      if (err?.response?.status === 404) {
+        throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
+      }
+      throw new BadRequestException(err?.response?.data?.message || 'Error al actualizar');
     }
   }
   

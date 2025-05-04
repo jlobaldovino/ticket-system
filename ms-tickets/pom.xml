@@ -9,10 +9,10 @@
 		<relativePath/>
 	</parent>
 	<groupId>com.tickets</groupId>
-	<artifactId>ms-users</artifactId>
+	<artifactId>ms-tickets</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ms-users</name>
-	<description>ms-users</description>
+	<name>ms-tickets</name>
+	<description>ms-tickets</description>
 	<url/>
 	<licenses>
 		<license/>
