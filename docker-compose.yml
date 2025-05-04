@@ -2,31 +2,40 @@
 
 services:
 
-  ms-users:
-    build: ./ms-users
-    container_name: ms-users
-    ports:
-      - "8081:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=dev
-    networks:
-      - ticket-network
-
-#  ms-tickets:
-#    build: ./ms-tickets
-#    container_name: ms-tickets
-#    ports:
-#      - "8082:8080"
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=dev
-#    networks:
-#      - ticket-network
-#
 #  ms-gateway-auth:
 #    build: ./ms-gateway-auth
 #    container_name: ms-gateway-auth
 #    ports:
 #      - "3000:3000"
+#    env_file:
+#      - ./ms-gateway-auth/.env
+#    networks:
+#      - ticket-network
+
+  ms-users:
+    build: ./ms-users
+    container_name: ms-users
+    #publico en mi local
+    ports:
+    #privado en docker
+    #expose:
+      - "8081:8081" 
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+    networks:
+      - ticket-network
+    depends_on:
+      - redis
+
+#  ms-tickets:
+#    build: ./ms-tickets
+#    container_name: ms-tickets
+#    ports:
+#      - "8082:8082"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=dev
 #    networks:
 #      - ticket-network
 
