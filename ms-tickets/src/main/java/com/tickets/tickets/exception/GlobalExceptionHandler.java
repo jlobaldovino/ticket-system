@@ -1,4 +1,4 @@
-package com.tickets.users.exception;
+package com.tickets.tickets.exception;
 
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -17,12 +17,6 @@ import java.util.UUID;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
-    @ExceptionHandler(UsuarioNoEncontradoException.class)
-    public ResponseEntity<Map<String, String>> handleUsuarioNoEncontrado(UsuarioNoEncontradoException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Map.of("error", ex.getMessage()));
-    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidacion(MethodArgumentNotValidException ex) {
@@ -55,9 +49,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Map<String, String>> handleUUIDConversionError(MethodArgumentTypeMismatchException ex) {
         if (ex.getRequiredType() != null && ex.getRequiredType().equals(UUID.class)) {
-            log.error("El identificador proporcionado no es un UUID válido.", ex);
+            log.error("1----El identificador proporcionado no es un UUID válido.", ex);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(Map.of("error", "1----El identificador proporcionado no es un UUID válido."));
+                    .body(Map.of("error", "El identificador proporcionado no es un UUID válido."));
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)

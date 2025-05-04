@@ -19,7 +19,7 @@ public class UserMapper {
                 .email(dto.getEmail())
                 .passwordHash(passwordHash)
                 .rol("USER")
-                .fechaCreacion(LocalDateTime.now())
+                    .fechaCreacion(LocalDateTime.now())
                 .fechaActualizacion(LocalDateTime.now())
                 .build();
     }

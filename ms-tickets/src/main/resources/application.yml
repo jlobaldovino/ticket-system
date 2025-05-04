@@ -3,6 +3,10 @@ server:
 
 spring:
 
+  #  config:
+  #    activate:
+  #      on-profile: dev
+
   datasource:
     url: jdbc:h2:mem:ticketsdb
     driver-class-name: org.h2.Driver
@@ -25,14 +29,13 @@ spring:
       enabled: true
       path: /h2-console
 
-  spring:
-    redis:
-      host: redis
-      port: 6379
-    cache:
-      type: redis
-    profiles:
-      active: dev
+  redis:
+    host: localhost
+    port: 6379
+  cache:
+    type: redis
+  profiles:
+    active: dev
 
   rabbitmq:
     host: rabbitmq
@@ -51,5 +54,5 @@ springdoc:
 logging:
   level:
     org.springframework: INFO
-    com.tickets.users: DEBUG
+    com.tickets.tickets: DEBUG
     org.springframework.boot.context.config: DEBUG

@@ -1,4 +1,4 @@
-package com.tickets.users.config;
+package com.tickets.tickets.config;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -19,16 +19,21 @@ public class RedisCacheConfig {
 
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
+
         RedisSerializer<Object> valueSerializer = new GenericJackson2JsonRedisSerializer();
         RedisSerializationContext.SerializationPair<Object> pair = RedisSerializationContext.SerializationPair.fromSerializer(valueSerializer);
 
         Map<String, RedisCacheConfiguration> configs = new HashMap<>();
 
-        configs.put("usuario", RedisCacheConfiguration.defaultCacheConfig()
+        configs.put("ticket", RedisCacheConfiguration.defaultCacheConfig()
                 .serializeValuesWith(pair)
                 .entryTtl(Duration.ofMinutes(30)));
 
-        configs.put("usuario_email", RedisCacheConfiguration.defaultCacheConfig()
+        configs.put("ticket_status", RedisCacheConfiguration.defaultCacheConfig()
+                .serializeValuesWith(pair)
+                .entryTtl(Duration.ofMinutes(5)));
+
+        configs.put("ticket_usuarioid", RedisCacheConfiguration.defaultCacheConfig()
                 .serializeValuesWith(pair)
                 .entryTtl(Duration.ofMinutes(5)));
 

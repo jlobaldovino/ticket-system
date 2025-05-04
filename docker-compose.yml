@@ -12,23 +12,23 @@ services:
 #    networks:
 #      - ticket-network
 
-  ms-users:
-    build: ./ms-users
-    container_name: ms-users
-    #publico en mi local
-    ports:
-    #privado en docker
-    #expose:
-      - "8081:8081" 
-    environment:
-      - SPRING_PROFILES_ACTIVE=dev
-      - SPRING_REDIS_HOST=redis
-      - SPRING_REDIS_PORT=6379
-    networks:
-      - ticket-network
-    depends_on:
-      - redis
-
+#  ms-users:
+#    build: ./ms-users
+#    container_name: ms-users
+#    #publico en mi local
+#    ports:
+#    #privado en docker
+#    #expose:
+#      - "8081:8081" 
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=dev
+#      - SPRING_REDIS_HOST=redis
+#      - SPRING_REDIS_PORT=6379
+#    networks:
+#      - ticket-network
+#    depends_on:
+#      - redis
+#
 #  ms-tickets:
 #    build: ./ms-tickets
 #    container_name: ms-tickets

@@ -12,6 +12,8 @@ import com.tickets.users.repository.UserRepository;
 import com.tickets.users.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
@@ -31,6 +33,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    private final CacheManager cacheManager;
+
     @Transactional
     public UserDTO crearUsuario(CrearUsuarioDTO dto) {
         validarEmailDisponible(dto.getEmail());
@@ -45,6 +49,7 @@ public class UserServiceImpl implements UserService {
             @CacheEvict(value = "usuario_email", allEntries = true)
     })
     public UserDTO actualizarUsuario(UUID id, ActualizarUsuarioDTO dto) {
+
         UserEntity usuario = userRepository.findById(id)
                 .orElseThrow(() -> new UsuarioNoEncontradoException(id));
 
@@ -58,7 +63,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     @Cacheable(value = "usuario_email", key = "#email")
     public AuthUserDTO buscarPorEmail(String email) {
-        System.out.println(email);
+        mostrarValorEnCache("usuario_email", email);
         return userRepository.findByEmail(email)
                 .map(user -> AuthUserDTO.builder()
                         .id(user.getId())
@@ -67,6 +72,20 @@ public class UserServiceImpl implements UserService {
                         .rol(user.getRol())
                         .build())
                 .orElseThrow(() -> new UsuarioNoEncontradoException(email));
+    }
+
+    public void mostrarValorEnCache(String name, String key) {
+        Cache ticketCache = cacheManager.getCache(name);
+        if (ticketCache != null) {
+            Object cachedValue = ticketCache.get(key, Object.class);
+            if (cachedValue != null) {
+                System.out.println("Valor almacenado en caché para key {"+key+"}: {"+cachedValue+"}");
+            } else {
+                System.out.println("No se encontró valor en caché para key {"+key+"}");
+            }
+        } else {
+            System.out.println("Error: ticketCache != null");
+        }
     }
 
     @Transactional(readOnly = true)

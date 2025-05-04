@@ -1,1 +1,0 @@
-INSERT INTO tickets(id,descripcion,usuarioId,fecha_creacion,fecha_actualizacion,status) VALUES('a1b2c3d4-e5f6-7890-1234-56789abcdef0','Este es un ticket de ejemplo','f1e2d3c4-b5a6-7890-1234-56789abcdef1','2025-05-04 10:20:00','2025-05-04 10:20:00','ABIERTO');

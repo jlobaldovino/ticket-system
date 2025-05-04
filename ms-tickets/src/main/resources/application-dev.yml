@@ -49,5 +49,5 @@ springdoc:
 logging:
   level:
     org.springframework: INFO
-    com.tickets.users: DEBUG
+    com.tickets.tickets: DEBUG
     org.springframework.boot.context.config: DEBUG

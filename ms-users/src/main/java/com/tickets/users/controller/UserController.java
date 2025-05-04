@@ -7,6 +7,8 @@ import com.tickets.users.dto.UserDTO;
 import com.tickets.users.service.UserService;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +37,8 @@ public class UserController {
 
     @GetMapping
     @Operation(summary = "Obtener listado paginado de usuarios")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400", description = "Solicitud inválida")})
     public ResponseEntity<Page<UserDTO>> listarUsuarios(
             @ParameterObject Pageable pageable) {
         return ResponseEntity.ok(userService.obtenerTodos(pageable));
@@ -42,12 +46,19 @@ public class UserController {
 
     @PostMapping
     @Operation(summary = "Crear un nuevo usuario")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Registro creado exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Solicitud inválida")})
     public ResponseEntity<UserDTO> crearUsuario(@Valid @RequestBody CrearUsuarioDTO dto) {
         UserDTO creado = userService.crearUsuario(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Actualizar un nuevo usuario")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Registro actualizado exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Solicitud inválida")})
     public ResponseEntity<UserDTO> actualizarUsuario(
             @PathVariable UUID id,
             @Valid @RequestBody ActualizarUsuarioDTO dto) {
@@ -57,6 +68,8 @@ public class UserController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener usuario por ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400", description = "Solicitud inválida")})
     public ResponseEntity<UserDTO> obtenerPorId(@PathVariable UUID id) {
         return ResponseEntity.ok(userService.obtenerPorId(id));
     }
