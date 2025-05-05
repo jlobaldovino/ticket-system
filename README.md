@@ -87,4 +87,27 @@ Sistema de gestión de tickets manejados por usuarios, desarrollado con arquitec
 ---
 ## Cómo ejecutar
 
+git clone https://github.com/jlobaldovino/ticket-system.git
+
+cd ticket-system
+
+Requisitos previos:
+-Docker
+-Java 17
+-Node.js (v18+)
+-Maven
+NestJS CLI:
+```bash npm install -g @nestjs/cli bash```
+
+Ejecutar todo con Docker
 ```bash docker-compose up --build bash```
+
+Esto levantará:
+
+-ms-users (Java - Spring Boot)
+-ms-tickets (Java - Spring Boot)
+-ms-gateway-auth (NestJS)
+-ms-audit (Java - Spring Boot)
+-RabbitMQ y Redis
+
+

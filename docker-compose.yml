@@ -39,35 +39,29 @@ services:
      - JWT_SECRET=supersecretoseguro123
      - JWT_EXPIRES_IN=2h
 
-  # ms-users:
-  #   build: ./ms-users
-  #   container_name: ms-users
-  #   #publico en mi local
-  #   ports:
-  #   #privado en docker
-  #   #expose:
-  #    - "8081:8081" 
-  #   environment:
-  #    - SPRING_PROFILES_ACTIVE=dev
-  #    - SPRING_REDIS_HOST=redis
-  #    - SPRING_REDIS_PORT=6379
-  #    - JWT_SECRET=supersecretoseguro123
-  #    - spring.redis.host=redis
-  #    - spring.redis.port=6379
-  #    - spring.rabbitmq.host=rabbitmq
-  #    - spring.rabbitmq.port=5672
-  #   networks:
-  #    - ticket-network
-  #   depends_on:
-  #    - redis
+  ms-users:
+    build: ./ms-users
+    container_name: ms-users
+    ports:
+     - "8081:8081" 
+    environment:
+     - SPRING_PROFILES_ACTIVE=dev
+     - SPRING_REDIS_HOST=redis
+     - SPRING_REDIS_PORT=6379
+     - JWT_SECRET=supersecretoseguro123
+     - spring.redis.host=redis
+     - spring.redis.port=6379
+     - spring.rabbitmq.host=rabbitmq
+     - spring.rabbitmq.port=5672
+    networks:
+     - ticket-network
+    depends_on:
+     - redis
 
   ms-tickets:
     build: ./ms-tickets
     container_name: ms-tickets
-    #publico en mi local
     ports:
-    #privado en docker
-    #expose:
       - "8082:8082" 
     environment:
       - SPRING_PROFILES_ACTIVE=dev
