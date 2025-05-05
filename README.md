@@ -54,6 +54,7 @@ Sistema de gestión de tickets manejados por usuarios, desarrollado con arquitec
 ## Endpoints principales
 
 -Api de Swagger: http://localhost:3000/api/docs
+
 -Colección de Postman: https://github.com/jlobaldovino/ticket-system/blob/master/tickets-system.postman_collection.json
 
 
