@@ -5,7 +5,8 @@ Sistema de gestión de tickets manejados por usuarios, desarrollado con arquitec
 
 ## Arquitectura
 
-Diagrama de componentes https://github.com/jlobaldovino/ticket-system/blob/master/arquitectura.png
+Diagrama de componentes 
+https://github.com/jlobaldovino/ticket-system/blob/master/arquitectura.png
 
 - **Orientada a eventos** usando RabbitMQ
 - **Persistencia por microservicio** (H2 embebido)
@@ -40,9 +41,11 @@ Diagrama de componentes https://github.com/jlobaldovino/ticket-system/blob/maste
 
 ## Endpoints principales
 
--Api de Swagger: http://localhost:3000/api/docs
+-Api de Swagger: 
+http://localhost:3000/api/docs
 
--Colección de Postman: https://github.com/jlobaldovino/ticket-system/blob/master/tickets-system.postman_collection.json
+-Colección de Postman: 
+https://github.com/jlobaldovino/ticket-system/blob/master/tickets-system.postman_collection.json
 
 
 ### Autenticación
@@ -78,10 +81,10 @@ Diagrama de componentes https://github.com/jlobaldovino/ticket-system/blob/maste
 ## Cómo ejecutar
 
 
-```bash git clone https://github.com/jlobaldovino/ticket-system.git bash```
+```git clone https://github.com/jlobaldovino/ticket-system.git```
 
 
-```bash cd ticket-system bash```
+```cd ticket-system```
 
 
 Requisitos previos:
@@ -92,12 +95,12 @@ Requisitos previos:
 
 NestJS CLI:
 
-```bash npm install -g @nestjs/cli bash```
+```npm install -g @nestjs/cli```
 
 
 Ejecutar todo con Docker
 
-```bash docker-compose up --build bash```
+```docker-compose up --build```
 
 
 Esto levantará:
