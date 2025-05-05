@@ -3,21 +3,6 @@
 Sistema de gestión de tickets manejados por usuarios, desarrollado con arquitectura orientada a eventos y microservicios usando Java (Spring Boot) y Node.js (NestJS).
 
 
-## Microservicios
-
-- `ms-users`: CRUD de usuarios y autenticación (Java)
-- `ms-tickets`: CRUD y gestión de tickets, filtrado, eventos (Java)
-- `ms-gateway-auth`: Autenticación y proxy (NestJS)
-- `ms-auditoria`: Para auditorio de transacciones: INSERT, UPDATE, DELETE (Java)
-
-
-## Tecnologías
-
-- Java 17, Spring Boot
-- Node.js, NestJS
-- JWT, Swagger, Docker, H2
-
-
 ## Arquitectura
 
 Diagrama de componentes https://github.com/jlobaldovino/ticket-system/blob/master/arquitectura.png
