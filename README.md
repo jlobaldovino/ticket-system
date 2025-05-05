@@ -18,13 +18,6 @@ Sistema de gestión de tickets manejados por usuarios, desarrollado con arquitec
 - JWT, Swagger, Docker, H2
 
 
-## Cómo ejecutar
-
-```bash
-docker-compose up --build
-```bash
-
-
 ## Arquitectura
 
 - **Orientada a eventos** usando RabbitMQ
@@ -33,7 +26,6 @@ docker-compose up --build
 - **Cache distribuido** con Redis
 - **Documentación** Swagger/OpenAPI
 - **Pruebas unitarias e integración**
-
 
 
 ## Microservicios
@@ -45,7 +37,6 @@ docker-compose up --build
 | `ms-gateway-auth` | Gateway en NestJS con autenticación y autorización basada en JWT |
 | `ms-auditoria` | Registra eventos del sistema consumidos desde RabbitMQ y los almacena en base de datos H2 |
 
----
 
 ## Tecnologías
 
@@ -59,7 +50,6 @@ docker-compose up --build
 - **MockMvc + Testcontainers** (pruebas de integración)
 - **Swagger/OpenAPI** (documentación de APIs)
 
----
 
 ## Endpoints principales
 
@@ -92,3 +82,6 @@ docker-compose up --build
 - Mock de eventos para validar publicación en RabbitMQ
 
 ---
+## Cómo ejecutar
+
+```bash docker-compose up --build bash```
