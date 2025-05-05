@@ -16,8 +16,8 @@ public class TicketMapper {
         return TicketEntity.builder()
                 .descripcion(dto.getDescripcion())
                 .usuarioId(dto.getUsuarioId())
-                .fechaCreacion(LocalDateTime.now())
-                .fechaActualizacion(LocalDateTime.now())
+                .fechaCreacion(String.valueOf(LocalDateTime.now()))
+                .fechaActualizacion(String.valueOf(LocalDateTime.now()))
                 .status(TicketEntity.Status.ABIERTO)
                 .build();
     }
@@ -36,6 +36,6 @@ public class TicketMapper {
     public static void actualizarEntidad(TicketEntity entity, ActualizarTicketDTO dto) {
         entity.setDescripcion(dto.getDescripcion());
         entity.setStatus(TicketEntity.Status.valueOf(dto.getStatus().name()));
-        entity.setFechaActualizacion(LocalDateTime.now());
+        entity.setFechaActualizacion(String.valueOf(LocalDateTime.now()));
     }
 }

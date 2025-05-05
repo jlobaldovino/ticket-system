@@ -77,10 +77,9 @@ export class TicketsService {
     }
 
     async filtrarTickets(query: any): Promise<TicketsRespuestaDTO[]> {
-      const { page = 0, size = 5, status, usuarioId } = query; // Valores predeterminados para paginación
+      const { page = 0, size = 5, status, usuarioId } = query;
       const params = new URLSearchParams();
   
-      // Agregar parámetros opcionales
       if (status) params.append('status', status);
       if (usuarioId) params.append('usuarioId', usuarioId);
       params.append('page', page.toString());

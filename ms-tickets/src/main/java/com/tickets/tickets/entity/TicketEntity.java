@@ -24,9 +24,9 @@ public class TicketEntity {
     @Column(nullable = false)
     private UUID usuarioId;
     @Column(name = "fecha_creacion", nullable = false)
-    private LocalDateTime fechaCreacion;
+    private String fechaCreacion;
     @Column(name = "fecha_actualizacion", nullable = false)
-    private LocalDateTime fechaActualizacion;
+    private String fechaActualizacion;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status;

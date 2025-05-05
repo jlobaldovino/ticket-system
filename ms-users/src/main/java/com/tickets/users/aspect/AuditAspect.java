@@ -44,7 +44,6 @@ public class AuditAspect {
 
         Object[] args = joinPoint.getArgs();
         try {
-            // Convierte el primer argumento a JSON
             String dataBefore = mapper.writeValueAsString(args[0]);
             JsonNode jsonData = mapper.readTree(dataBefore);
 
@@ -52,11 +51,9 @@ public class AuditAspect {
             if (jsonData instanceof ObjectNode) {
                 auditNode = (ObjectNode) jsonData;
             } else {
-                // En caso de que jsonData no sea un objeto, se crea uno nuevo y se envuelve el valor original
                 auditNode = mapper.createObjectNode();
                 auditNode.put("valor", jsonData.asText());
             }
-            // Añade la propiedad "password"
             auditNode.put("password", "OCULTO");
 
             String data = mapper.writeValueAsString(auditNode);

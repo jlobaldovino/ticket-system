@@ -87,8 +87,8 @@ public class TicketServiceImpl implements TicketServiceInterface {
 
     @Transactional
     @Caching(cacheable = {
-            @Cacheable(value = "ticket_status", key = "#status"),
-            @Cacheable(value = "ticket_usuarioid", key = "#usuarioid")
+            @Cacheable(value = "ticket_status", key = "#status", condition = "#status != null"),
+            @Cacheable(value = "ticket_usuarioid", key = "#usuarioid", condition = "#usuarioid != null")
     })
     public Page<TicketDTO> filtrarTickets(String status, UUID usuarioId, Pageable pageable) {
         try {

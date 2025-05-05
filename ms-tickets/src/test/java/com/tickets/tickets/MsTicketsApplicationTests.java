@@ -1,4 +1,4 @@
-package com.tickets.users;
+package com.tickets.tickets;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

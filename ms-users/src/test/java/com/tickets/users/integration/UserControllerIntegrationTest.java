@@ -76,10 +76,10 @@ public class UserControllerIntegrationTest {
     @Test
     void crearUsuario_camposInvalidos() throws Exception {
         CrearUsuarioDTO dto = new CrearUsuarioDTO();
-        dto.setNombres(""); // inválido
+        dto.setNombres("");
         dto.setApellidos("");
         dto.setEmail("correo-no-valido");
-        dto.setPassword("123"); // muy corto
+        dto.setPassword("123");
 
         mockMvc.perform(post("/api/usuarios")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -132,7 +132,6 @@ public class UserControllerIntegrationTest {
 
     @Test
     void actualizarUsuario_emailDuplicado_deberiaRetornar400() throws Exception {
-        // Usuario 1
         userRepository.save(UserEntity.builder()
                 .nombres("Ana")
                 .apellidos("Ramírez")
@@ -143,7 +142,6 @@ public class UserControllerIntegrationTest {
                 .fechaActualizacion(LocalDateTime.now())
                 .build());
 
-        // Usuario 2
         UserEntity user2 = userRepository.save(UserEntity.builder()
                 .nombres("Luis")
                 .apellidos("Torres")
@@ -154,7 +152,6 @@ public class UserControllerIntegrationTest {
                 .fechaActualizacion(LocalDateTime.now())
                 .build());
 
-        // Intenta actualizar con email duplicado
         ActualizarUsuarioDTO dto = new ActualizarUsuarioDTO();
         dto.setNombres("Luis");
         dto.setApellidos("Torres");
@@ -171,7 +168,6 @@ public class UserControllerIntegrationTest {
 
     @Test
     void obtenerUsuarioPorId_exitoso() throws Exception {
-        // Arrange
         UserEntity user = userRepository.save(UserEntity.builder()
                 .nombres("María")
                 .apellidos("Gómez")
@@ -181,7 +177,6 @@ public class UserControllerIntegrationTest {
                 .fechaCreacion(LocalDateTime.now())
                 .fechaActualizacion(LocalDateTime.now())
                 .build());
-        // Act + Assert
         mockMvc.perform(get("/api/usuarios/" + user.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(user.getId().toString()))
@@ -199,7 +194,6 @@ public class UserControllerIntegrationTest {
 
     @Test
     void listarUsuarios_sinResultados_deberiaRetornarListaVacia() throws Exception {
-        // DB vacía
 
         mockMvc.perform(get("/api/usuarios?page=0&size=5"))
                 .andExpect(status().isOk())
@@ -210,7 +204,6 @@ public class UserControllerIntegrationTest {
 
     @Test
     void listarUsuarios_conOrdenamiento_deberiaRetornarOrdenCorrecto() throws Exception {
-        // Arrange
         userRepository.save(UserEntity.builder().nombres("Zara").apellidos("Bravo").email("zara@example.com")
                 .passwordHash("hash").rol("USER").fechaCreacion(LocalDateTime.now())
                 .fechaActualizacion(LocalDateTime.now()).build());
@@ -218,7 +211,6 @@ public class UserControllerIntegrationTest {
                 .passwordHash("hash").rol("USER").fechaCreacion(LocalDateTime.now())
                 .fechaActualizacion(LocalDateTime.now()).build());
 
-        // Act + Assert
         mockMvc.perform(get("/api/usuarios?page=0&size=2&sort=nombres,asc"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].nombres").value("Andrés"))

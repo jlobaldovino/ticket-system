@@ -39,7 +39,6 @@ class GatewayIntegrationTest {
     void setup(@Autowired UserRepository userRepository) {
         userRepository.deleteAll();
 
-        // Crear usuario directamente en ms-users
         UserEntity user = UserEntity.builder()
                 .nombres("Pedro")
                 .apellidos("Pérez")

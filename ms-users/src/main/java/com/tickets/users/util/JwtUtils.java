@@ -20,7 +20,7 @@ public class JwtUtils {
                     .parseClaimsJws(cleanToken)
                     .getBody();
 
-            return claims.getSubject(); // o claims.get("email", String.class)
+            return claims.getSubject();
         } catch (Exception e) {
             return "anonimo";
         }

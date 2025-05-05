@@ -1,0 +1,753 @@
+{
+	"info": {
+		"_postman_id": "2ae0b92f-5eb4-4e88-9411-a5138c6a28c3",
+		"name": "tickets-system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "419475"
+	},
+	"item": [
+		{
+			"name": "Apis",
+			"item": [
+				{
+					"name": "ms-gateway-auth",
+					"item": [
+						{
+							"name": "tickets",
+							"item": [
+								{
+									"name": "gtw-addTicket(private)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YzRjZWQ0Mi05ZmQ0LTQyYTgtYWNjMC03NTBmMjBjODRhNGEiLCJlbWFpbCI6Imp1YW4ucGVyZXpAZ21haWwuY29tIiwicm9sIjoiQURNSU4iLCJpYXQiOjE3NDY0NjUxNjMsImV4cCI6MTc0NjQ3MjM2M30.IsP_iBkHAmjEggY0QvU9eTXjmXJNxGWLe-t8I62vUUs",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"descripcion\": \"Descripción del ticket numero 1\",\r\n  \"usuarioId\": \"123e4567-e89b-12d3-a456-426614174000\" \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:3000/api/tickets",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"tickets"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "gtw-updateTicket(private)",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YzRjZWQ0Mi05ZmQ0LTQyYTgtYWNjMC03NTBmMjBjODRhNGEiLCJlbWFpbCI6Imp1YW4ucGVyZXpAZ21haWwuY29tIiwicm9sIjoiQURNSU4iLCJpYXQiOjE3NDY0NjUxNjMsImV4cCI6MTc0NjQ3MjM2M30.IsP_iBkHAmjEggY0QvU9eTXjmXJNxGWLe-t8I62vUUs",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"descripcion\": \"Descripción del ticket numero 2\",\r\n    \"status\": \"CERRADO\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:3000/api/tickets/c797be5d-9463-4940-b82d-526f4049da9e",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"tickets",
+												"c797be5d-9463-4940-b82d-526f4049da9e"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "gtw-deleteTicket(private)",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer [Bearer]",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:3000/api/tickets/e9603581-8302-410d-80da-fdf932e958ef",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"tickets",
+												"e9603581-8302-410d-80da-fdf932e958ef"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "gtw-getTicketById(private)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YzRjZWQ0Mi05ZmQ0LTQyYTgtYWNjMC03NTBmMjBjODRhNGEiLCJlbWFpbCI6Imp1YW4ucGVyZXpAZ21haWwuY29tIiwicm9sIjoiQURNSU4iLCJpYXQiOjE3NDY0NjUxNjMsImV4cCI6MTc0NjQ3MjM2M30.IsP_iBkHAmjEggY0QvU9eTXjmXJNxGWLe-t8I62vUUs",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:3000/api/tickets/c797be5d-9463-4940-b82d-526f4049da9e",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"tickets",
+												"c797be5d-9463-4940-b82d-526f4049da9e"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "gtw-getAllTicketsPag(private)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YzRjZWQ0Mi05ZmQ0LTQyYTgtYWNjMC03NTBmMjBjODRhNGEiLCJlbWFpbCI6Imp1YW4ucGVyZXpAZ21haWwuY29tIiwicm9sIjoiQURNSU4iLCJpYXQiOjE3NDY0NjUxNjMsImV4cCI6MTc0NjQ3MjM2M30.IsP_iBkHAmjEggY0QvU9eTXjmXJNxGWLe-t8I62vUUs",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:3000/api/tickets?page=0&size=5",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"tickets"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "size",
+													"value": "5"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "gtw-filterTicketsPag(private)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YzRjZWQ0Mi05ZmQ0LTQyYTgtYWNjMC03NTBmMjBjODRhNGEiLCJlbWFpbCI6Imp1YW4ucGVyZXpAZ21haWwuY29tIiwicm9sIjoiQURNSU4iLCJpYXQiOjE3NDY0NjUxNjMsImV4cCI6MTc0NjQ3MjM2M30.IsP_iBkHAmjEggY0QvU9eTXjmXJNxGWLe-t8I62vUUs",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:3000/api/tickets/filtrar?status=ABIERTO",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"tickets",
+												"filtrar"
+											],
+											"query": [
+												{
+													"key": "status",
+													"value": "ABIERTO"
+												},
+												{
+													"key": "usuarioId",
+													"value": "123e4567-e89b-12d3-a456-426614174000",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "users",
+							"item": [
+								{
+									"name": "gtw-authLogin(public)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"email\": \"juan.perez@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:3000/api/auth/login",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "gtw-addUser(public)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"nombres\": \"Jose\",\r\n  \"apellidos\": \"Osorio\",\r\n  \"email\": \"jose@email.com\",\r\n  \"password\": \"123456789\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:3000/api/usuarios",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"usuarios"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "gtw-getById(private)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTEwNjJlYi0wMmM3LTQ1MjgtYTJlZC0yYmU3ODk4ODY5NWIiLCJlbWFpbCI6Imp1YW4ucGVyZXpAZ21haWwuY29tIiwicm9sIjoiQURNSU4iLCJpYXQiOjE3NDY0NjM3NjIsImV4cCI6MTc0NjQ3MDk2Mn0.nX-4a60rUuh0q_B1nYRBY0Quk7d1XUW9vq611KxA3pE",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:3000/api/usuarios/ad2c57b1-1165-4236-b824-c12a0f1b14a0",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"usuarios",
+												"ad2c57b1-1165-4236-b824-c12a0f1b14a0"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "gtw-getAllPag(private)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTEwNjJlYi0wMmM3LTQ1MjgtYTJlZC0yYmU3ODk4ODY5NWIiLCJlbWFpbCI6Imp1YW4ucGVyZXpAZ21haWwuY29tIiwicm9sIjoiQURNSU4iLCJpYXQiOjE3NDY0NjM3NjIsImV4cCI6MTc0NjQ3MDk2Mn0.nX-4a60rUuh0q_B1nYRBY0Quk7d1XUW9vq611KxA3pE",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:3000/api/usuarios?page=0&size=5",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"usuarios"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "size",
+													"value": "5"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "gtw-updateUser(private)",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTEwNjJlYi0wMmM3LTQ1MjgtYTJlZC0yYmU3ODk4ODY5NWIiLCJlbWFpbCI6Imp1YW4ucGVyZXpAZ21haWwuY29tIiwicm9sIjoiQURNSU4iLCJpYXQiOjE3NDY0NjM3NjIsImV4cCI6MTc0NjQ3MDk2Mn0.nX-4a60rUuh0q_B1nYRBY0Quk7d1XUW9vq611KxA3pE",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"nombres\": \"NuevoNombre\",\r\n  \"apellidos\": \"NuevoApellido\",\r\n  \"email\": \"nuevo3@email.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:3000/api/usuarios/ad2c57b1-1165-4236-b824-c12a0f1b14a0",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"usuarios",
+												"ad2c57b1-1165-4236-b824-c12a0f1b14a0"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "auditoria",
+							"item": [
+								{
+									"name": "gtw-auditoria(private)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTEwNjJlYi0wMmM3LTQ1MjgtYTJlZC0yYmU3ODk4ODY5NWIiLCJlbWFpbCI6Imp1YW4ucGVyZXpAZ21haWwuY29tIiwicm9sIjoiQURNSU4iLCJpYXQiOjE3NDY0NjM3NjIsImV4cCI6MTc0NjQ3MDk2Mn0.nX-4a60rUuh0q_B1nYRBY0Quk7d1XUW9vq611KxA3pE",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:3000/api/auditoria",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"auditoria"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "ms.users",
+					"item": [
+						{
+							"name": "addUser",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombres\": \"Carolina\",\r\n  \"apellidos\": \"Galván\",\r\n  \"email\": \"cardljkf.galvan@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8081/api/usuarios",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getUserByEmail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/api/usuarios/email/juan.perez@gmail.com",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"usuarios",
+										"email",
+										"juan.perez@gmail.com"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getUserById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/api/usuarios/811ce7f0-122e-4447-b177-a1ff3ceb587e",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"usuarios",
+										"811ce7f0-122e-4447-b177-a1ff3ceb587e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "obtenerTodos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/api/usuarios?page=0&size=5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"usuarios"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizarUsuario",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombres\": \"Carlos\",\r\n  \"apellidos\": \"Perez\",\r\n  \"email\": \"jorge.perez@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8081/api/usuarios/811ce7f0-122e-4447-b177-a1ff3ceb587e",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"usuarios",
+										"811ce7f0-122e-4447-b177-a1ff3ceb587e"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ms-tickets",
+					"item": [
+						{
+							"name": "addTicket",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"descripcion\": \"Descripción del ticket numero 1\",\r\n  \"usuarioId\": \"123e4567-e89b-12d3-a456-426614174000\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/api/tickets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"tickets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updateTicket",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"descripcion\": \"Descripción del ticket numero 2\",\r\n    \"status\": \"CERRADO\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/api/tickets/c60a3bb4-c587-4f78-bf91-cd98c4bde43d",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"tickets",
+										"c60a3bb4-c587-4f78-bf91-cd98c4bde43d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteTicket",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/tickets/271f2565-6902-4265-8ebb-974e547c78e3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"tickets",
+										"271f2565-6902-4265-8ebb-974e547c78e3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getTicketById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/tickets/34458c48-c441-4a55-8e5e-3e62e52838b7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"tickets",
+										"34458c48-c441-4a55-8e5e-3e62e52838b7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAllTicketsPag",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/tickets?page=0&size=5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"tickets"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filterTicketsPag",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/tickets/filtrar?usuarioId=123e4567-e89b-12d3-a456-426614174000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"tickets",
+										"filtrar"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "CERRADO",
+											"disabled": true
+										},
+										{
+											"key": "usuarioId",
+											"value": "123e4567-e89b-12d3-a456-426614174000"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ms.audit",
+					"item": [
+						{
+							"name": "auditoria(Log)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8083/api/auditoria",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"api",
+										"auditoria"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

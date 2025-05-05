@@ -53,6 +53,9 @@ Sistema de gestión de tickets manejados por usuarios, desarrollado con arquitec
 
 ## Endpoints principales
 
+-Api de Swagger: http://localhost:3000/api/docs
+
+
 ### Autenticación
 - `POST /api/auth/login` → Retorna JWT válido tras login exitoso
 
