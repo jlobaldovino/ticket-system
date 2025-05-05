@@ -20,6 +20,8 @@ Sistema de gestión de tickets manejados por usuarios, desarrollado con arquitec
 
 ## Arquitectura
 
+
+
 - **Orientada a eventos** usando RabbitMQ
 - **Persistencia por microservicio** (H2 embebido)
 - **Seguridad y acceso** controlado mediante JWT
@@ -87,29 +89,42 @@ Sistema de gestión de tickets manejados por usuarios, desarrollado con arquitec
 - Mock de eventos para validar publicación en RabbitMQ
 
 ---
+
 ## Cómo ejecutar
 
-git clone https://github.com/jlobaldovino/ticket-system.git
 
-cd ticket-system
+```bash git clone https://github.com/jlobaldovino/ticket-system.git bash```
+
+
+```bash cd ticket-system bash```
+
 
 Requisitos previos:
 -Docker
 -Java 17
 -Node.js (v18+)
 -Maven
+
 NestJS CLI:
+
 ```bash npm install -g @nestjs/cli bash```
 
+
 Ejecutar todo con Docker
+
 ```bash docker-compose up --build bash```
+
 
 Esto levantará:
 
--ms-users (Java - Spring Boot)
--ms-tickets (Java - Spring Boot)
--ms-gateway-auth (NestJS)
--ms-audit (Java - Spring Boot)
--RabbitMQ y Redis
 
+-ms-users (Java - Spring Boot)
+
+-ms-tickets (Java - Spring Boot)
+
+-ms-gateway-auth (NestJS)
+
+-ms-audit (Java - Spring Boot)
+
+-RabbitMQ y Redis
 
