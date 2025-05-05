@@ -2,48 +2,12 @@
 
 services:
 
-#  ms-gateway-auth:
-#    build: ./ms-gateway-auth
-#    container_name: ms-gateway-auth
-#    ports:
-#      - "3000:3000"
-#    env_file:
-#      - ./ms-gateway-auth/.env
-#    networks:
-#      - ticket-network
-
-#  ms-users:
-#    build: ./ms-users
-#    container_name: ms-users
-#    #publico en mi local
-#    ports:
-#    #privado en docker
-#    #expose:
-#      - "8081:8081" 
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=dev
-#      - SPRING_REDIS_HOST=redis
-#      - SPRING_REDIS_PORT=6379
-#    networks:
-#      - ticket-network
-#    depends_on:
-#      - redis
-#
-#  ms-tickets:
-#    build: ./ms-tickets
-#    container_name: ms-tickets
-#    ports:
-#      - "8082:8082"
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=dev
-#    networks:
-#      - ticket-network
-
   redis:
     image: redis:7
     container_name: redis
     ports:
       - "6379:6379"
+    restart: always
     networks:
       - ticket-network
 
@@ -58,6 +22,90 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
     networks:
       - ticket-network
+
+#  ms-gateway-auth:
+#    container_name: ms-gateway-auth
+#    build: ./ms-gateway-auth
+#    ports:
+#      - "3000:3000"
+#    networks:
+#      - ticket-network
+#    environment:
+#      - USERS_API_URL=http://ms-users:8080/api/usuarios
+#      - NODE_ENV=production
+#      - JWT_SECRET=supersecretoseguro123
+#      - JWT_EXPIRES_IN=2h
+#
+  ms-gateway-auth:
+    build: ./ms-gateway-auth
+    container_name: ms-gateway-auth
+    ports:
+     - "3000:3000"
+    env_file:
+     - ./ms-gateway-auth/.env
+    networks:
+     - ticket-network
+    environment:
+     - USERS_API_URL=http://ms-users:8081/api/usuarios
+     - TICKETS_API_URL=http:/ms-tickets:8082/api/tickets
+     - AUDIT_API_URL=http:/ms-audit:8083/api/auditoria
+     - JWT_SECRET=supersecretoseguro123
+     - JWT_EXPIRES_IN=2h
+
+  ms-users:
+    build: ./ms-users
+    container_name: ms-users
+    #publico en mi local
+    ports:
+    #privado en docker
+    #expose:
+     - "8081:8081" 
+    environment:
+     - SPRING_PROFILES_ACTIVE=dev
+     - SPRING_REDIS_HOST=redis
+     - SPRING_REDIS_PORT=6379
+     - JWT_SECRET=supersecretoseguro123
+     - spring.redis.host=redis
+     - spring.redis.port=6379
+     - spring.rabbitmq.host=rabbitmq
+     - spring.rabbitmq.port=5672
+    networks:
+     - ticket-network
+    depends_on:
+     - redis
+
+  ms-tickets:
+    build: ./ms-tickets
+    container_name: ms-tickets
+    #publico en mi local
+    ports:
+    #privado en docker
+    #expose:
+      - "8082:8082" 
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+      - JWT_SECRET=supersecretoseguro123
+      - spring.rabbitmq.host=rabbitmq
+      - spring.rabbitmq.port=5672
+    networks:
+      - ticket-network
+    depends_on:
+      - redis
+
+  ms-audit:
+    build: ./ms-audit
+    container_name: ms-audit
+    ports:
+      - "8083:8083" 
+    environment:
+      - spring.rabbitmq.host=rabbitmq
+      - spring.rabbitmq.port=5672
+    networks:
+      - ticket-network
+    depends_on:
+      - rabbitmq
 
 networks:
   ticket-network:

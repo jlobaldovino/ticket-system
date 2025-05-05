@@ -1,5 +1,6 @@
 package com.tickets.tickets.service.impl;
 
+import com.tickets.tickets.annotation.AuditEvent;
 import com.tickets.tickets.dto.ActualizarTicketDTO;
 import com.tickets.tickets.dto.CrearTicketDTO;
 import com.tickets.tickets.dto.TicketDTO;
@@ -10,6 +11,9 @@ import com.tickets.tickets.repository.TicketRepository;
 import com.tickets.tickets.service.TicketServiceInterface;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
@@ -23,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentMap;
 
 @Slf4j
 @Service
@@ -30,9 +35,14 @@ import java.util.UUID;
 public class TicketServiceImpl implements TicketServiceInterface {
 
     private final TicketRepository ticketRepository;
+
+    @Autowired
     private final CacheManager cacheManager;
 
+    private static final Logger logger = LoggerFactory.getLogger(TicketServiceImpl.class);
+
     @Transactional
+    @AuditEvent(servicio = "ms-tickets", accion = "CREAR_TICKET")
     public TicketDTO crearTicket(CrearTicketDTO crearTicketDTO) {
         try {
             TicketEntity ticketEntity = TicketMapper.toEntity(crearTicketDTO);
@@ -45,10 +55,9 @@ public class TicketServiceImpl implements TicketServiceInterface {
 
     @Transactional
     @Caching(evict = {
-            @CacheEvict(value = "ticket", key = "#id"),
-            @CacheEvict(value = "ticket_status", key ="#status" ),
-            @CacheEvict(value = "ticket_usuarioid", key ="#usuarioid" )
+            @CacheEvict(value = "ticket", key = "#id")
     })
+    @AuditEvent(servicio = "ms-tickets", accion = "ACTUALIZAR_TICKET")
     public TicketDTO actualizarTicket(UUID id, ActualizarTicketDTO actualizarTicketDTO) {
         TicketEntity ticketEntity = ticketRepository.findById(id)
                 .orElseThrow(() -> new TicketNotFoundException(id.toString()));
@@ -57,6 +66,7 @@ public class TicketServiceImpl implements TicketServiceInterface {
      }
 
     @Transactional
+    @AuditEvent(servicio = "ms-tickets", accion = "ELIMINAR_TICKET")
     public void eliminarTicket(UUID id) {
         ticketRepository.findById(id).orElseThrow(() -> new TicketNotFoundException(id.toString()));
         ticketRepository.deleteById(id);
@@ -65,25 +75,9 @@ public class TicketServiceImpl implements TicketServiceInterface {
     @Transactional
     @Cacheable(value = "ticket", key = "#id")
     public Optional<TicketDTO> obtenerTicketPorId(UUID id) {
-        mostrarValorEnCache("ticket", id.toString());
         return ticketRepository.findById(id)
             .map(TicketMapper::toDTO)
             .or(() -> {throw new TicketNotFoundException(id.toString());});
-    }
-
-
-    public void mostrarValorEnCache(String name, String key) {
-        Cache ticketCache = cacheManager.getCache(name);
-        if (ticketCache != null) {
-            Object cachedValue = ticketCache.get(key, Object.class);
-            if (cachedValue != null) {
-                System.out.println("Valor almacenado en caché para key {"+key+"}: {"+cachedValue+"}");
-            } else {
-                System.out.println("No se encontró valor en caché para key {"+key+"}");
-            }
-        } else {
-            System.out.println("Error: ticketCache != null");
-        }
     }
 
     @Transactional
@@ -119,6 +113,6 @@ public class TicketServiceImpl implements TicketServiceInterface {
         }
     }
 
-    
+
     
 }

@@ -32,6 +32,7 @@ export class UsersService {
   async crearUsuario(dto: CrearUsuarioDTO): Promise<any> {
     try {
       const res$ = this.http.post(`${this.baseUrl}`, dto);
+      console.log("remote: "+this.baseUrl);
       const res = await firstValueFrom(res$);
       return res.data;
     } catch (err: any) {
@@ -62,6 +63,7 @@ export class UsersService {
   async actualizarUsuario(id: string, dto: ActualizarUsuarioDTO): Promise<any> {
     try {
       const res$ = this.http.put(`${this.baseUrl}/${id}`, dto);
+      console.log("remote: "+this.baseUrl);
       const res = await firstValueFrom(res$);
       return res.data;
     } catch (err: any) {

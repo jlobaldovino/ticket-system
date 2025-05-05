@@ -33,13 +33,13 @@ public class UserEntity {
     @Column(nullable = false)
     private String passwordHash;
 
-    @Column(nullable = false)
     private String rol;
 
-    @Column(name = "fecha_creacion", nullable = false)
+    @Column(name = "fecha_creacion" )
     private LocalDateTime fechaCreacion;
 
-    @Column(name = "fecha_actualizacion", nullable = false)
+    @Column(name = "fecha_actualizacion")
     private LocalDateTime fechaActualizacion;
+
 }
 

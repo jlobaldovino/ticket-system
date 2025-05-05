@@ -1,5 +1,6 @@
 package com.tickets.users.service.impl;
 
+import com.tickets.users.annotation.AuditEvent;
 import com.tickets.users.dto.ActualizarUsuarioDTO;
 import com.tickets.users.dto.AuthUserDTO;
 import com.tickets.users.dto.CrearUsuarioDTO;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
+import java.util.concurrent.ConcurrentMap;
 
 @Slf4j
 @Service
@@ -36,6 +38,7 @@ public class UserServiceImpl implements UserService {
     private final CacheManager cacheManager;
 
     @Transactional
+    @AuditEvent(servicio = "ms-users", accion = "CREAR_USUARIO")
     public UserDTO crearUsuario(CrearUsuarioDTO dto) {
         validarEmailDisponible(dto.getEmail());
         UserEntity entity = UserMapper.toEntity(dto, passwordEncoder.encode(dto.getPassword()));
@@ -48,6 +51,7 @@ public class UserServiceImpl implements UserService {
             @CacheEvict(value = "usuario", key = "#id"),
             @CacheEvict(value = "usuario_email", allEntries = true)
     })
+    @AuditEvent(servicio = "ms-users", accion = "ACTUALIZAR_USUARIO")
     public UserDTO actualizarUsuario(UUID id, ActualizarUsuarioDTO dto) {
 
         UserEntity usuario = userRepository.findById(id)
@@ -63,7 +67,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     @Cacheable(value = "usuario_email", key = "#email")
     public AuthUserDTO buscarPorEmail(String email) {
-        mostrarValorEnCache("usuario_email", email);
+        printAllCacheEntries();
         return userRepository.findByEmail(email)
                 .map(user -> AuthUserDTO.builder()
                         .id(user.getId())
@@ -72,20 +76,6 @@ public class UserServiceImpl implements UserService {
                         .rol(user.getRol())
                         .build())
                 .orElseThrow(() -> new UsuarioNoEncontradoException(email));
-    }
-
-    public void mostrarValorEnCache(String name, String key) {
-        Cache ticketCache = cacheManager.getCache(name);
-        if (ticketCache != null) {
-            Object cachedValue = ticketCache.get(key, Object.class);
-            if (cachedValue != null) {
-                System.out.println("Valor almacenado en caché para key {"+key+"}: {"+cachedValue+"}");
-            } else {
-                System.out.println("No se encontró valor en caché para key {"+key+"}");
-            }
-        } else {
-            System.out.println("Error: ticketCache != null");
-        }
     }
 
     @Transactional(readOnly = true)
@@ -99,6 +89,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO obtenerPorId(UUID id) {
         UserEntity usuario = userRepository.findById(id)
                 .orElseThrow(() -> new UsuarioNoEncontradoException(id));
+        printAllCacheEntries();
         return UserMapper.toDTO(usuario);
     }
 
@@ -107,4 +98,29 @@ public class UserServiceImpl implements UserService {
             throw new EmailYaRegistradoException(email);
         }
     }
+
+
+
+
+    public void printAllCacheEntries() {
+        for (String cacheName : cacheManager.getCacheNames()) {
+            Cache cache = cacheManager.getCache(cacheName);
+            if (cache != null) {
+                Object nativeCache = cache.getNativeCache();
+                if (nativeCache instanceof ConcurrentMap<?, ?>) {
+                    ConcurrentMap<?, ?> map = (ConcurrentMap<?, ?>) nativeCache;
+                    System.out.println("Contenido de la caché '{"+cacheName+"}'");
+                    map.forEach((key, value) ->
+                            System.out.println("  [{"+key+"}] => {"+value+"}")
+                    );
+                } else {
+                    System.out.println("No se pudo obtener el contenido de la caché '{"+cacheName+"}': Tipo inesperado");
+                }
+            } else {
+                System.out.println("Caché '{"+cacheName+"}' no encontrada");
+            }
+        }
+    }
+
+
 }

@@ -1,4 +1,4 @@
-package com.tickets.users.annotation;
+package com.tickets.tickets.annotation;
 
 import java.lang.annotation.*;
 

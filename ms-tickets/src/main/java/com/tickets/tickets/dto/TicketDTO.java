@@ -17,8 +17,8 @@ public class TicketDTO {
     private UUID id;
     private String descripcion;
     private UUID usuarioId;
-    private LocalDateTime fechaCreacion;
-    private LocalDateTime fechaActualizacion;
+    private String fechaCreacion;
+    private String fechaActualizacion;
     private Status status;
     public enum Status {ABIERTO,CERRADO}
 }

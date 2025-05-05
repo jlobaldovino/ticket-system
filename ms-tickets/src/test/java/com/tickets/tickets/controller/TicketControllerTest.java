@@ -43,6 +43,7 @@ class TicketControllerTest {
         ticketDTO.setDescripcion("Nuevo ticket");
         ticketDTO.setStatus(TicketDTO.Status.ABIERTO);
         ticketDTO.setUsuarioId(crearTicketDTO.getUsuarioId());
+
         when(ticketService.crearTicket(any(CrearTicketDTO.class))).thenReturn(ticketDTO);
         ResponseEntity<TicketDTO> response = ticketController.crearTicket(crearTicketDTO);
         assertEquals(201, response.getStatusCodeValue());

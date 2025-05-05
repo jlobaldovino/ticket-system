@@ -1,12 +1,10 @@
-package com.tickets.users.aspect;
+package com.tickets.tickets.aspect;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.tickets.users.annotation.AuditEvent;
-import com.tickets.users.dto.AuditEventDTO;
-import com.tickets.users.publisher.AuditEventPublisher;
-import com.tickets.users.util.JwtUtils;
+import com.tickets.tickets.annotation.AuditEvent;
+import com.tickets.tickets.dto.AuditEventDTO;
+import com.tickets.tickets.publisher.AuditEventPublisher;
+import com.tickets.tickets.util.JwtUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +28,7 @@ public class AuditAspect {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @AfterReturning(
-            pointcut = "@annotation(com.tickets.users.annotation.AuditEvent)",
+            pointcut = "@annotation(com.tickets.tickets.annotation.AuditEvent)",
             returning = "result")
     public void enviarEventoAuditoria(JoinPoint joinPoint, Object result) {
 
@@ -44,22 +42,8 @@ public class AuditAspect {
 
         Object[] args = joinPoint.getArgs();
         try {
-            // Convierte el primer argumento a JSON
-            String dataBefore = mapper.writeValueAsString(args[0]);
-            JsonNode jsonData = mapper.readTree(dataBefore);
+            String data = mapper.writeValueAsString(args[0]);
 
-            ObjectNode auditNode;
-            if (jsonData instanceof ObjectNode) {
-                auditNode = (ObjectNode) jsonData;
-            } else {
-                // En caso de que jsonData no sea un objeto, se crea uno nuevo y se envuelve el valor original
-                auditNode = mapper.createObjectNode();
-                auditNode.put("valor", jsonData.asText());
-            }
-            // Añade la propiedad "password"
-            auditNode.put("password", "OCULTO");
-
-            String data = mapper.writeValueAsString(auditNode);
             AuditEventDTO evento = AuditEventDTO.builder()
                     .timestamp(String.valueOf(LocalDateTime.now()))
                     .accion(annotation.accion())

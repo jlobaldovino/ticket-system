@@ -3,10 +3,6 @@ server:
 
 spring:
 
-  #  config:
-  #    activate:
-  #      on-profile: dev
-
   datasource:
     url: jdbc:h2:mem:ticketsdb
     driver-class-name: org.h2.Driver

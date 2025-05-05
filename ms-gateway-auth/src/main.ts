@@ -14,6 +14,5 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   const port = configService.get<number>('PORT') || 3000;
   await app.listen(port);
-  console.log(`Gateway corriendo en http://localhost:${port}`);
 }
 bootstrap();

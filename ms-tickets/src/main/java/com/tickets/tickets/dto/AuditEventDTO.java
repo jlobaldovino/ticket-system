@@ -1,10 +1,7 @@
-package com.tickets.users.dto;
+package com.tickets.tickets.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 @Data
 @Builder

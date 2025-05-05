@@ -27,8 +27,8 @@ public class TicketMapper {
                 .id(entity.getId())
                 .descripcion(entity.getDescripcion())
                 .usuarioId(entity.getUsuarioId())
-                .fechaCreacion(entity.getFechaCreacion())
-                .fechaActualizacion(entity.getFechaActualizacion())
+                .fechaCreacion(String.valueOf(entity.getFechaCreacion()))
+                .fechaActualizacion(String.valueOf(entity.getFechaActualizacion()))
                 .status(TicketDTO.Status.valueOf(entity.getStatus().name()))
                 .build();
     }

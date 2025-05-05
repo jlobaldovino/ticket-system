@@ -1,8 +1,8 @@
-package com.tickets.users.publisher;
+package com.tickets.tickets.publisher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tickets.users.config.RabbitConfig;
-import com.tickets.users.dto.AuditEventDTO;
+import com.tickets.tickets.config.RabbitConfig;
+import com.tickets.tickets.dto.AuditEventDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
