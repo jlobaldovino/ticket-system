@@ -20,7 +20,7 @@ Sistema de gestión de tickets manejados por usuarios, desarrollado con arquitec
 
 ## Arquitectura
 
-
+Diagrama de componentes https://github.com/jlobaldovino/ticket-system/blob/master/arquitectura.png
 
 - **Orientada a eventos** usando RabbitMQ
 - **Persistencia por microservicio** (H2 embebido)
